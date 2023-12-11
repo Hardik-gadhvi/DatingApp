@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\Dating_App_Main.props" />
-</Project>
