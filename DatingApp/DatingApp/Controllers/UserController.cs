@@ -13,7 +13,7 @@ namespace DatingApp.Controllers
 
         public UserController(DataContext dataContext) {
 
-            _dataContext = dataContext;
+            _dataContext = dataContext; 
         }
         [AllowAnonymous]
         [HttpGet]
@@ -22,11 +22,12 @@ namespace DatingApp.Controllers
             var users = await _dataContext.Users.ToListAsync();
             return users;
         }
-
+   
         [HttpGet("{id}")]
         public async Task<ActionResult<AppUser>> GetUser(int id)
         {
             var user = await _dataContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+           
             return user;
         }
     }
