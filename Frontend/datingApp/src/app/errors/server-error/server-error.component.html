@@ -1,0 +1,13 @@
+<h4>Internal Server Error - Refresh page to let this error to be disappeared!</h4>
+<ng-container *ngIf="error">
+    <h5 class="text-danger">Error: {{error.message}}</h5>
+    <p class="font-weight-bold">Note: If you are seeing this then angular is probebly not to blame</p>
+    <p>What to do next?</p>
+    <ol>
+        <li>Open Chrome DevTools! Then check the failing request in the network tab</li>
+        <li>Examine the request URL - what api point you are requesting?</li>
+        <li>Reproduce the problem in Postmen - if we get same error Angular is 100% is not a problem</li>
+    </ol>
+    <p style="font-weight: bold;">Following is the stack trace - the first few lines will tell you which line of code caused the issue in the api</p>
+    <code class="mt-5" style="background-color: whitesmoke;">{{error.details}}</code>
+</ng-container>
