@@ -1,4 +1,5 @@
-﻿using DatingApp.Data;
+﻿using AutoMapper;
+using DatingApp.Data;
 using DatingApp.DTOs;
 using DatingApp.Entities;
 using DatingApp.Interfaces;
@@ -15,32 +16,35 @@ namespace DatingApp.Controllers
         private readonly DataContext _dataContext;
 
         private readonly ITokenService _tokenService;
-        public AccountController(DataContext context, ITokenService tokenService) {
+        private readonly IMapper _mapper;
+
+        public AccountController(DataContext context, ITokenService tokenService, IMapper mapper ) {
 
             _dataContext = context;
             _tokenService = tokenService;
+            _mapper = mapper;
         }
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> Register(RegisterDTO register)
         {
             if (await UserExists(register.Username))
                 return BadRequest("User already taken!");
+
+            var user = _mapper.Map<AppUser>(register);
             using var hmac = new HMACSHA512();
 
-            var user = new AppUser { 
-            
-                UserName = register.Username.ToLower(),
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(register.Password)),
-                PasswordSalt = hmac.Key
-            };
+            user.UserName = register.Username.ToLower();
+            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(register.Password));
+            user.PasswordSalt = hmac.Key;
+           
             _dataContext.Users.Add(user);
             await _dataContext.SaveChangesAsync();
+
             return new UserDTO {
                 Username = user.UserName,
                 Token = _tokenService.createToken(user),
-                
+                KnownAs = user.KnownAs,
             };
-
         }
 
         [HttpPost("login")]
@@ -64,7 +68,8 @@ namespace DatingApp.Controllers
             {
                 Username = user.UserName,
                 Token = _tokenService.createToken(user),
-                PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
+                PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url,
+                KnownAs = user.KnownAs
             };
         }
         private async Task<bool> UserExists(string username)
