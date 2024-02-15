@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AccountService {
-
+  users: any = [];
   baseUrl = environment.apiUrl;
   private CurrentUserSource = new BehaviorSubject<User | null>(null);
   currentUser$ = this.CurrentUserSource.asObservable();
@@ -41,5 +41,8 @@ export class AccountService {
   logout(){
     localStorage.removeItem('user');
     this.CurrentUserSource.next(null);
+  }
+  getUsers(){
+    return this.http.get(this.baseUrl +'user');
   }
 }
