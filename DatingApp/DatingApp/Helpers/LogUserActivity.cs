@@ -16,7 +16,7 @@ namespace DatingApp.Helpers
 
             var repo = resultContext.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
 
-            var user = await repo.GetUserById(int.Parse(userId));
+            var user = await repo.GetUserById(userId);
             user.LastActive = DateTime.Now;
             await repo.SaveAllAsync();
         }
