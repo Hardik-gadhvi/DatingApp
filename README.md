@@ -1,4 +1,4 @@
-# ❤️ DatingApp
+# DatingApp
 
 A modern Full Stack Dating Application built using ASP.NET Core Web API and Angular.
 
@@ -153,34 +153,6 @@ DatingApp
 
 ---
 
-# 📸 Screenshots
-
-### Login
-
-(Add Screenshot)
-
-### Register
-
-(Add Screenshot)
-
-### Member List
-
-(Add Screenshot)
-
-### Member Profile
-
-(Add Screenshot)
-
-### Messaging
-
-(Add Screenshot)
-
-### Photo Gallery
-
-(Add Screenshot)
-
----
-
 # 🎯 Learning Outcomes
 
 This project demonstrates:
@@ -206,4 +178,4 @@ GitHub:
 https://github.com/Hardik-gadhvi
 
 LinkedIn:
-(Add LinkedIn Profile URL)
+www.linkedin.com/in/hardik-gadhvi-73a3051ab
